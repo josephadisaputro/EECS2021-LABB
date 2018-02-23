@@ -1,0 +1,22 @@
+         .globl         fini         
+         .text  
+main:    #---------------------
+	 addi	$t0, $0, 0	# s0 = 0;
+	 #---------------------
+	 addi	$v0, $0, 5
+	 syscall 
+	 add	$t1, $0, $v0	# t0 = scanner dll
+	 #---------------------
+	 addi	$t5, $0, 0	# t5 = 0;
+	 addi	$t3, $0, 1	# t3 = 1;
+loop: 	 slt	$t2, $t5, $t1
+	 beq 	$t2, $t3, then
+	 j	else
+then:	 add	$t0, $t0, $t5
+	 addi	$t5, $t5, 1
+	 j	loop
+else:	 addi     $v0, $0, 1        # service #1 
+         add      $a0, $0, $t0      # printInt 
+         syscall                    # do print 
+ 	 jr 	  $ra 		    # return 	
+		
